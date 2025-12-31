@@ -13,7 +13,6 @@ import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class TestNGTodo2 {
 
@@ -21,12 +20,10 @@ public class TestNGTodo2 {
     private String Status = "failed";
 
     @BeforeMethod
-public void setup() {
-    WebDriverManager.chromedriver().setup();
-    ChromeOptions options = new ChromeOptions();
-    options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1080", "--no-sandbox", "--disable-dev-shm-usage");
-    driver = new ChromeDriver(options);
-}
+    public void setup(Method m, ITestContext ctx) throws MalformedURLException {
+        System.setProperty("webdriver.chrome.driver", "/chromedriver-mac-arm64/chromedriver");
+        driver = new ChromeDriver();
+    }
 
     @Test
     public void basicTest() throws InterruptedException {
@@ -89,7 +86,7 @@ public void setup() {
 
     @AfterMethod
     public void tearDown() {
-        if(driver != null) driver.quit();
+        driver.quit();
     }
 
 }
