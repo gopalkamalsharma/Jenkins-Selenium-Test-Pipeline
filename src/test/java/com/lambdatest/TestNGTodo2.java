@@ -21,10 +21,12 @@ public class TestNGTodo2 {
     private String Status = "failed";
 
     @BeforeMethod
-    public void setup() {
-        WebDriverManager.chromedriver().setup();  // Automatically downloads & sets path
-        driver = new ChromeDriver();
-    }
+public void setup() {
+    WebDriverManager.chromedriver().setup();
+    ChromeOptions options = new ChromeOptions();
+    options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1080", "--no-sandbox", "--disable-dev-shm-usage");
+    driver = new ChromeDriver(options);
+}
 
     @Test
     public void basicTest() throws InterruptedException {
@@ -87,7 +89,7 @@ public class TestNGTodo2 {
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+        if(driver != null) driver.quit();
     }
 
 }
