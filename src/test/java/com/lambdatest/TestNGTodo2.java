@@ -13,6 +13,7 @@ import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class TestNGTodo2 {
 
@@ -20,8 +21,8 @@ public class TestNGTodo2 {
     private String Status = "failed";
 
     @BeforeMethod
-    public void setup(Method m, ITestContext ctx) throws MalformedURLException {
-        System.setProperty("webdriver.chrome.driver", "/chromedriver-mac-arm64/chromedriver");
+    public void setup() {
+        WebDriverManager.chromedriver().setup();  // Automatically downloads & sets path
         driver = new ChromeDriver();
     }
 
